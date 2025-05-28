@@ -9,7 +9,7 @@ const divPokemonList = document.getElementById("pokemon-list");
 
 // endpoint bereiken en data ophalen
 // toevoegen specifieke endpoint die we willen bereiken
-fetch(apiUrl + "pokemon")
+fetch(apiUrl + "pokemon/?limit=1025")
     // wat moet er met het antwoord (response) gebeuren
     .then(response => {
         // data omzetten naar bruikbare json
@@ -37,8 +37,10 @@ function generatePokemonList(pokemonArray){
     let pokemonList = "<ol>";
     // alle namen overlopen in de array en toevoegen als list items <li> 
     pokemonArray.forEach(element => {
+        // naam capitalisen
+        const pokemonName = capitalise(element.name);
         // toevoegen HTML code aan bestaande string
-        pokemonList += `<li>${element.name}</li>`
+        pokemonList += `<li>${pokemonName}</li>`
     });
     // lijst afsluiten
     pokemonList += "</ol>";
@@ -46,3 +48,8 @@ function generatePokemonList(pokemonArray){
     return pokemonList;
 }
 
+// function om een woord te 'capitalisen' (eerste letter hoofdletter)
+function capitalise(word) {
+    // een string is eigenlijk ook een array van characters
+    return word[0].toUpperCase() + word.substring(1);
+}
