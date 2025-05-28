@@ -6,6 +6,15 @@ const apiUrl = "https://pokeapi.co/api/v2/";
 
 // HTML elementen binden aan variabelen
 const slcPokemonList = document.getElementById("pokemon-list");
+const divPokemonImage = document.getElementById("pokemon-image");
+
+// leeg pokemon object maken om later in te vullen
+const pokemon = {
+    id: "",
+    name: "",
+    image: "",
+    types: []
+}
 
 // uitvoeren eerste function om initiële data op te halen
 getPokemonData();
@@ -49,3 +58,46 @@ function generatePokemonList(pokemonArray) {
     // volledige html code als return
     return pokemonList;
 }
+
+function generateInfoDiv() {
+
+    const pokemonDiv =
+        `<div class="card" style="width: 13rem;">            
+            <img src="${pokemon.image}" class="card-img-top">            
+            <div class="card-body">
+                <p>#${pokemon.id} ${pokemon.name}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li>Hier komen de types</li>
+            </ul>
+            </div>
+        </div>`;
+
+    return pokemonDiv;
+}
+
+// eventlistener voor kiezen van een pokemon uit de select list
+// wordt dus uitgevoerd wanneer we een naam uit de lijst kiezen en aanklikken
+slcPokemonList.addEventListener("change", () => {
+    // data ophalen van gekozen pokemon
+    const chosenPokemon = slcPokemonList.value;
+    fetch(apiUrl + "pokemon/" + chosenPokemon)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            console.log(data);
+            // nodige data van gekozen pokemon in object opslaan
+            pokemon.id = data.id;
+            pokemon.name = data.name;
+            pokemon.image = data.sprites.front_default;
+            pokemon.types = data.types;
+
+            // div aanmaken
+            const divPokemonInfo = generateInfoDiv();
+
+            // div onder select plaatsen
+            slcPokemonList.insertAdjacentHTML("afterend",divPokemonInfo);
+        })
+})
+
