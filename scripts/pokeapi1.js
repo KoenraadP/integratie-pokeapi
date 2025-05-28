@@ -40,7 +40,7 @@ function generatePokemonList(pokemonArray){
         // naam capitalisen
         const pokemonName = capitalise(element.name);
         // toevoegen HTML code aan bestaande string
-        pokemonList += `<li>${pokemonName}</li>`
+        pokemonList += `<li>${pokemonName}</li>`;
     });
     // lijst afsluiten
     pokemonList += "</ol>";
