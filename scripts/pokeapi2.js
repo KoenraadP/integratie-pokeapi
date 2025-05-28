@@ -62,13 +62,13 @@ function generatePokemonList(pokemonArray) {
 function generateInfoDiv() {
 
     const pokemonDiv =
-        `<div class="card" style="width: 13rem;">            
+        `<div id="pokemon-info" class="card" style="width: 13rem;">            
             <img src="${pokemon.image}" class="card-img-top">            
             <div class="card-body">
                 <p>#${pokemon.id} ${pokemon.name}</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li>Hier komen de types</li>
+                <li class="list-group-item">Hier komen de types</li>
             </ul>
             </div>
         </div>`;
@@ -92,6 +92,11 @@ slcPokemonList.addEventListener("change", () => {
             pokemon.name = data.name;
             pokemon.image = data.sprites.front_default;
             pokemon.types = data.types;
+
+            // controleren of er al een div met id pokemon-info bestaat
+            // zoja: eerst verwijderen
+            const pokemonInfoExists = document.getElementById("pokemon-info");
+            if (pokemonInfoExists) pokemonInfoExists.remove();
 
             // div aanmaken
             const divPokemonInfo = generateInfoDiv();
