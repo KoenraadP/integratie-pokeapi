@@ -6,7 +6,6 @@ const apiUrl = "https://pokeapi.co/api/v2/";
 
 // HTML elementen binden aan variabelen
 const slcPokemonList = document.getElementById("pokemon-list");
-const divPokemonImage = document.getElementById("pokemon-image");
 
 // leeg pokemon object maken om later in te vullen
 const pokemon = {
@@ -22,7 +21,7 @@ getPokemonData();
 function getPokemonData() {
     // endpoint bereiken en data ophalen
     // toevoegen specifieke endpoint die we willen bereiken
-    fetch(apiUrl + "pokemon/")
+    fetch(apiUrl + "pokemon/?limit=1025")
         // wat moet er met het antwoord (response) gebeuren
         .then(response => {
             // data omzetten naar bruikbare json
@@ -61,14 +60,26 @@ function generatePokemonList(pokemonArray) {
 
 function generateInfoDiv() {
 
+    let typeList = "";
+    const pokemondbUrl = `https://pokemondb.net/pokedex/${pokemon.name}`;
+
+    // alle types in HTML code plaatsen
+    // de types zitten per type als volgt in de data:
+    // pokemon.types[0].type.name
+    pokemon.types.forEach(element => {
+        typeList += `<li class="list-group-item">${element.type.name}</li>`
+    });
+
     const pokemonDiv =
-        `<div id="pokemon-info" class="card" style="width: 13rem;">            
-            <img src="${pokemon.image}" class="card-img-top">            
+        `<div id="pokemon-info" class="card" style="width: 13rem;">
+            <a href="${pokemondbUrl}" target="_blank">
+                <img src="${pokemon.image}" class="card-img-top">
+            </a>            
             <div class="card-body">
                 <p>#${pokemon.id} ${pokemon.name}</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Hier komen de types</li>
+                ${typeList}
             </ul>
             </div>
         </div>`;

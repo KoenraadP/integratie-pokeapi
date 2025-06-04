@@ -13,10 +13,18 @@
     <!-- <div id="pokemon-list"></div>
     <script src="scripts/pokeapi1.js"></script> -->
 
-    <select class="my-3 form-control" name="pokemon-list" id="pokemon-list">
+    <!-- <select class="my-3 form-control" name="pokemon-list" id="pokemon-list">
         <option hidden>Kies een pokémon</option>
     </select>
-    <script src="scripts/pokeapi2.js"></script>
+    <script src="scripts/pokeapi2.js"></script> -->
+
+    <input type="text" id="search-input" class="form-control my-3" list="datalist" placeholder="Type a pokémon name">
+    <!-- een datalist voorziet snelle zoekopties voor een zoekvak -->
+    <!-- mogelijkheden binnen de datalist staan in <option> tags -->
+    <datalist id="datalist"></datalist>
+    <button id="search-button" class="btn btn-primary mb-3">Search</button>
+    <div id="pokemon-card"></div>
+    <script src="scripts/pokeapi3.js"></script>
 </body>
 
 </html>
